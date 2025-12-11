@@ -18,8 +18,7 @@ impl InitIf for InitIfImpl {
         axcpu::init::init_trap();
         axplat_aarch64_peripherals::psci::init(PSCI_METHOD);
 
-        // Todo, compatible = "rockchip,rk3588-uart\0snps,dw-apb-uart"
-        //super::dw_apb_uart::init_early();
+        super::dw_apb_uart::init_early();
 
         axplat_aarch64_peripherals::generic_timer::init_early();
     }
@@ -40,7 +39,7 @@ impl InitIf for InitIfImpl {
         {
             use crate::mem::phys_to_virt;
             use axplat::mem::pa;
-            axplat_aarch64_peripherals::gic::init_gicd(
+            axplat_aarch64_peripherals::gic::init_gic(
                 phys_to_virt(pa!(GICD_PADDR)),
                 phys_to_virt(pa!(GICC_PADDR)),
             );

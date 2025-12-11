@@ -71,4 +71,9 @@ impl ConsoleIf for ConsoleIfImpl {
         }
         read_len
     }
+
+    #[cfg(feature = "irq")]
+    fn irq_num() -> Option<usize> {
+        Some(crate::config::devices::UART_IRQ)
+    }
 }

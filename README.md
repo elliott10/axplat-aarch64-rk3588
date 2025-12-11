@@ -1,6 +1,6 @@
 # axplat-aarch64-rk3588
 
-Implementation of ArceOS [axplat](https://github.com/arceos-org/axplat_crates/tree/main/axplat) hardware abstraction layer for `Rockchip RK3588` board.
+Implementation of ArceOS [axplat](arceos-org/axplat_crates/tree/main/axplat) hardware abstraction layer for `Rockchip RK3588` board.
 
 ## QUICK START
 
@@ -28,6 +28,12 @@ A u-boot bootable image file `examples/shell/shell_aarch64-rk3588.uimg` will be 
 
 ```bash
 make SMP=8 MYPLAT=axplat-aarch64-rk3588 A=examples/shell FEATURES=page-alloc-4g,driver-ramdisk BUS=mmio UIMAGE=y
+```
+
+If to compile [StarryOS](https://github.com/Starry-OS/StarryOS), just run:
+```bash
+cd StarryOS
+make rk3588
 ```
 
 #### Boot ArceOS image by U-Boot

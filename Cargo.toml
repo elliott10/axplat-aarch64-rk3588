@@ -1,6 +1,6 @@
 [package]
 name = "axplat-aarch64-rk3588"
-version = "0.1.0"
+version = "0.2.0"
 description = "Implementation of `axplat` hardware abstraction layer for Rockchip RK3588."
 documentation = "https://docs.rs/axplat-aarch64-rk3588"
 keywords = ["arceos", "os", "hal", "embedded", "aarch64"]
@@ -13,19 +13,19 @@ repository = "https://github.com/elliott10/axplat-aarch64-rk3588"
 [features]
 fp-simd = ["axcpu/fp-simd"]
 rtc = []
-irq = ["axplat/irq"]
+irq = ["axplat/irq", "axplat-aarch64-peripherals/irq"]
 smp = ["axplat/smp", "kspin/smp"]
 
 [dependencies]
 log = "0.4"
 kspin = "0.1"
 page_table_entry = "0.5"
-dw_apb_uart = "0.1"
-
 axconfig-macros = "0.2"
-axcpu = "0.2"
-axplat = "0.1"
-axplat-aarch64-peripherals = "0.1"
+axcpu = { version = "0.3", git = "https://github.com/arceos-org/axcpu.git", tag = "dev-v03" }
+axplat = { git = "https://github.com/arceos-org/axplat_crates.git", tag = "dev-v03" }
+axplat-aarch64-peripherals = { git = "https://github.com/arceos-org/axplat_crates.git", tag = "dev-v03" }
+
+dw_apb_uart = { git = "https://github.com/elliott10/dw_apb_uart.git", rev = "9de1bf0f", features = ["board_rk3588"] }
 
 [package.metadata.docs.rs]
 targets = ["aarch64-unknown-none"]
