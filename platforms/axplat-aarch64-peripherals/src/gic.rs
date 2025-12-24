@@ -95,6 +95,7 @@ pub fn init_gicc() {
 
 /// Sends an inter-processor interrupt (IPI) to the specified target CPU or all CPUs.
 pub fn send_ipi(irq_num: usize, target: IpiTarget) {
+    debug!("send_ipi irq_num={}", irq_num);
     match target {
         IpiTarget::Current { cpu_id: _ } => {
             GIC.lock()

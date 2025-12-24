@@ -11,6 +11,9 @@ license.workspace = true
 homepage.workspace = true
 repository.workspace = true
 
+[features]
+gicv3 = []
+
 [dependencies]
 kspin = "0.1"
 log = "0.4"
@@ -21,6 +24,7 @@ page_table_entry = "0.5"
 aarch64-cpu = "10.0"
 arm_pl011 = "0.1"
 arm-gic-driver = "0.15"
+arm-gic = { git = "https://github.com/google/arm-gic.git", tag="0.6.0" }
 arm_pl031 = "0.2"
 axcpu = { workspace = true }
 axplat = { workspace = true, features = ["irq"] }

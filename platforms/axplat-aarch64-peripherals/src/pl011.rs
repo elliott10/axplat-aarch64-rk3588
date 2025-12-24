@@ -60,6 +60,8 @@ pub fn init_early(uart_base: VirtAddr) {
 pub fn irq_handler() {
     let is_receive_interrupt = UART.lock().is_receive_interrupt();
     UART.lock().ack_interrupts();
+
+    debug!("UART IRQ Handler");
     if is_receive_interrupt {
         while let Some(c) = getchar() {
             putchar(c);

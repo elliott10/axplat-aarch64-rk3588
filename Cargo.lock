@@ -62,6 +62,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "arm-gic"
+version = "0.6.0"
+source = "git+https://github.com/google/arm-gic.git?tag=0.6.0#56875f22e35b53d48e3fb67f02d01a37591303ec"
+dependencies = [
+ "bitflags 2.9.2",
+ "safe-mmio",
+ "thiserror",
+ "zerocopy",
+]
+
+[[package]]
 name = "arm-gic-driver"
 version = "0.15.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -176,6 +187,7 @@ name = "axplat-aarch64-peripherals"
 version = "0.2.0"
 dependencies = [
  "aarch64-cpu",
+ "arm-gic",
  "arm-gic-driver",
  "arm_pl011",
  "arm_pl031",
@@ -1024,6 +1036,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28d3b2b1366ec20994f1fd18c3c594f05c5dd4bc44d8bb0c1c632c8d6829481f"
 
 [[package]]
+name = "safe-mmio"
+version = "0.2.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1e278214ff688cacb43a8e71611d1fd1b0788a8b55a054dbce9a9b70b9a6a6f2"
+dependencies = [
+ "zerocopy",
+]
+
+[[package]]
 name = "sbi-rt"
 version = "0.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1538,6 +1559,26 @@ dependencies = [
  "quote",
  "syn",
  "synstructure",
+]
+
+[[package]]
+name = "zerocopy"
+version = "0.8.31"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fd74ec98b9250adb3ca554bdde269adf631549f51d8a8f8f0a10b50f1cb298c3"
+dependencies = [
+ "zerocopy-derive",
+]
+
+[[package]]
+name = "zerocopy-derive"
+version = "0.8.31"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d8a8d209fdf45cf5138cbb5a506f6b52522a25afccc534d1475dad8e31105c6a"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]

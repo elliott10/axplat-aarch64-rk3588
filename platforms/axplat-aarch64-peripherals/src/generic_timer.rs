@@ -29,6 +29,7 @@ pub fn nanos_to_ticks(nanos: u64) -> u64 {
 ///
 /// A timer interrupt will be triggered at the specified monotonic time deadline (in nanoseconds).
 pub fn set_oneshot_timer(deadline_ns: u64) {
+    trace!("set_oneshot_timer: {}", deadline_ns);
     let cnptct = CNTPCT_EL0.get();
     let cnptct_deadline = nanos_to_ticks(deadline_ns);
     if cnptct < cnptct_deadline {
@@ -54,9 +55,15 @@ pub fn init_early() {
 /// It should be called on all CPUs, as the timer interrupt is a PPI (Private
 /// Peripheral Interrupt).
 pub fn enable_irqs(timer_irq_num: usize) {
+    debug!("enable timer irq: {}", timer_irq_num);
     CNTP_CTL_EL0.write(CNTP_CTL_EL0::ENABLE::SET);
     CNTP_TVAL_EL0.set(0);
-    crate::gic::set_enable(timer_irq_num, true);
+
+    #[cfg(not(feature = "gicv3"))]
+    use super::gic::set_enable;
+    #[cfg(feature = "gicv3")]
+    use super::gicv3::set_enable;
+    set_enable(timer_irq_num, true);
 }
 
 /// Default implementation of [`axplat::time::TimeIf`] using the generic
