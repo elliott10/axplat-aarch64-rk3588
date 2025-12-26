@@ -64,10 +64,12 @@ pub fn set_enable(irq_num: usize, enabled: bool) {
     GicV3::set_priority_mask(0xff);
 
     let mpidr_el1 = aarch64_cpu::registers::MPIDR_EL1.get() as usize;
-    let cpu_id = mpidr_el1 & 0xff; // fixme
+    let cpu_id = mpidr_el1 & 0xff; // fix me
     debug!(
         "GICv3 set enable: irq={} {} to CPU {}",
-        irq_num, enabled, cpu_id
+        Into::<u32>::into(int_id),
+        enabled,
+        cpu_id
     );
     GICv3
         .lock()
@@ -156,9 +158,11 @@ pub fn handle_irq(_unused: usize) {
     // Read IAR
     if let Some(int_id) = GicV3::get_and_acknowledge_interrupt(InterruptGroup::Group1) {
         let num = Into::<u32>::into(int_id) as usize;
-
-        let mpidr_el1 = aarch64_cpu::registers::MPIDR_EL1.get();
-        trace!("CPU {:x} got irq: {}", mpidr_el1, num);
+        trace!(
+            "CPU {:x} got irq: {}",
+            aarch64_cpu::registers::MPIDR_EL1.get(),
+            num
+        );
         if !IRQ_HANDLER_TABLE.handle(num) {
             warn!("IRQ_HANDLER_TABLE unhandled IRQ {}", num);
         }
@@ -196,10 +200,6 @@ pub fn init_gicc(cpu: usize) {
     // Initialises the GIC and marks the given CPU core as awake.
     // and enable group 1 for the current security state.
     GICv3.lock().setup(cpu); // init_cpu
-
-    // Configure: DAIFClr, to enables debug, SError, IRQ and FIQ exceptions.
-    irq_enable();
-
     GICv3.lock().gicd_barrier();
     GICv3.lock().gicr_barrier(cpu);
 }

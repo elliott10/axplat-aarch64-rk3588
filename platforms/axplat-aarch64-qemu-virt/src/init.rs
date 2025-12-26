@@ -59,8 +59,7 @@ impl InitIf for InitIfImpl {
                 axplat_aarch64_peripherals::gicv3::init_gicc(cpu_id);
             }
 
-            // cpu0 handle timer irq bug. Fix me
-            //axplat_aarch64_peripherals::generic_timer::enable_irqs(TIMER_IRQ);
+            axplat_aarch64_peripherals::generic_timer::enable_irqs(TIMER_IRQ);
 
             // enable UART IRQs
             axplat::irq::register(UART_IRQ, axplat_aarch64_peripherals::pl011::irq_handler);
