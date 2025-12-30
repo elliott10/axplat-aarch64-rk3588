@@ -47,15 +47,15 @@ mmio-ranges = [
     [0xfd8d8000, 0x1000],   # power-management, len = 0x400
     [0xfdab0000, 0x3000],   # npu@fdab0000, npu0,npu1,npu2,len=0x3000
 
-    [0xfd5f8000, 0x1000],  # bus ioc, len=0x100
-    [0xfd7c0000, 0x5c000], # cru
-    [0xfeb50000, 0x1000],  # uart8250
-    [0xfeba0000, 0x1000],  # uart7
-    [0xfec40000, 0x1000],  # gpio3, len=0x100
-    [0xfe600000, 0x20000], # arm,gic-v3
-    [0xfe680000, 0x100000],# arm,gic-v3
-    [0xfe180000, 0x10000], # rockchip,rk3588-pcie
-    [0xfe190000, 0x10000], # rockchip,rk3588-pcie
+    [0xfd5f8000, 0x1000],   # bus ioc, len=0x100
+    [0xfd7c0000, 0x5c000],  # cru
+    [0xfeb50000, 0x1000],   # uart8250
+    [0xfeba0000, 0x1000],   # uart7
+    [0xfec40000, 0x1000],   # gpio3, len=0x100
+    [0xfe600000, 0x20000],  # arm,gic-v3
+    [0xfe680000, 0x100000], # arm,gic-v3
+    [0xfe180000, 0x10000],  # rockchip,rk3588-pcie
+    [0xfe190000, 0x10000],  # rockchip,rk3588-pcie
 
     [0xfe150000, 0x10000],  # rockchip,rk3588-pcie
     [0xfe1b0000, 0x10000],  # ethernet,gmac0
@@ -84,9 +84,9 @@ pci-ranges = [
 ] # [(uint, uint)]
 
 # UART Address
-uart-paddr = 0xfeb50000        # uint
-# UART IRQ number (SPI, 0xd5)
-uart-irq = 0x14d                 # uint
+uart-paddr = 0xfeb50000       # uint
+# UART IRQ number (SPI, 0x14d)
+uart-irq = 365                # uint
 
 # Timer interrupt num (PPI, physical timer).
 timer-irq = 30                # uint
@@ -97,3 +97,5 @@ gicc-paddr = 0xfe610000        # uint
 gicd-paddr = 0xfe600000        # uint
 # GICR Address of rk3588
 gicr-paddr = 0xfe680000
+# GIC version
+gic-version = 3 # uint

@@ -35,15 +35,20 @@ pub fn init_early() {
 
 /// Set UART IRQ Enable
 #[cfg(feature = "irq")]
+#[allow(dead_code)]
 pub fn init_irq() {
     UART.lock().set_ier(true);
-    axplat_aarch64_peripherals::gic::register_handler(crate::config::devices::UART_IRQ, handle);
+    axplat_aarch64_peripherals::gicv3::register_handler(crate::config::devices::UART_IRQ, handle);
 }
 
 /// UART IRQ Handler
+#[cfg(feature = "irq")]
 #[allow(dead_code)]
 pub fn handle() {
     debug!("Uart IRQ Handler");
+    if let Some(c) = getchar() {
+        putchar(c);
+    }
 }
 
 struct ConsoleIfImpl;
@@ -74,6 +79,8 @@ impl ConsoleIf for ConsoleIfImpl {
 
     #[cfg(feature = "irq")]
     fn irq_num() -> Option<usize> {
-        Some(crate::config::devices::UART_IRQ)
+        //Some(crate::config::devices::UART_IRQ)
+        //Set StarryOS obtain uart char by poll, instead of uart interrupt
+        None
     }
 }
